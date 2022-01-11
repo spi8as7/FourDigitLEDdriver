@@ -1,0 +1,29 @@
+
+ parameter DELAY = 250000;
+
+        reg clean_but;
+        reg [19:0] count;
+       
+        always @(posedge CLKDV or posedge reset)
+        begin
+					if(reset)
+					begin
+					clean_but = 0;
+					end
+               else if (scroll_button == 1)
+                begin
+                        count = (count == 20'b11111_11111_11111_11110) ? 20'b11111_11111_11111_11110 : count + 1;
+                        if (count == DELAY)
+                                clean_but = 1;
+                        else
+                                clean_but = 0;
+                end
+                else
+                begin
+                        count = 0;
+                        clean_but = 0;
+                end
+        end
+
+
+
